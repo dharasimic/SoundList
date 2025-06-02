@@ -1,4 +1,4 @@
-# 🎶 SoundList
+# 🎶 PlayListar
 ### Um projeto simples de CRUD para criação de playlists desenvolvido como atividade da disciplina de Java na FATEC Rubens Lara.
 
 ## 🚀 Sobre o Projeto
