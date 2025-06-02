@@ -1,2 +1,29 @@
-# SoundList
-Projeto feito para a matéria de Programação Orientada a Objetos.
+🎶 SoundList
+Um projeto simples de CRUD para criação de playlists desenvolvido como atividade da disciplina de Java na FATEC Rubens Lara.
+
+🚀 Sobre o Projeto
+O PlayListar é uma aplicação web que permite criar, visualizar, atualizar e excluir playlists. O objetivo é colocar em prática os conceitos de desenvolvimento com Java, aplicando as operações básicas de um CRUD de forma simples e funcional.
+
+🛠️ Funcionalidades
+✅ Criar uma playlist
+
+✅ Listar todas as playlists
+
+✅ Editar informações de uma playlist
+
+✅ Excluir uma playlist
+
+🧠 Tecnologias e Ferramentas
+☕ Java – linguagem principal do projeto
+
+💻 HTML5 & CSS3 – estrutura e estilo da interface
+
+🎨 Bootstrap (opcional) – para estilização
+
+🔗 JSP / Servlets – para renderização dinâmica
+
+🗄️ MySQL / H2 / outro – banco de dados para armazenamento das playlists
+
+🔧 Apache Tomcat – servidor de aplicação
+
+🛠️ Eclipse / IntelliJ / VSCode – IDE utilizada no desenvolvimento
