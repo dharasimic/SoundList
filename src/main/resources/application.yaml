@@ -1,0 +1,17 @@
+server:
+    port: 8080
+
+spring:
+    datasource:
+        platform: postgres
+        url: jdbc:postgresql://localhost:5432/testedb
+        username: postgres
+        password: 270812
+        driverClassName: org.postgresql.Driver
+        initialize: true
+
+    sql:
+        init:
+            schema-locations: classpath:/schema-postgresql.sql
+            mode: always
+            platform: postgres

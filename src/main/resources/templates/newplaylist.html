@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns?th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADICIONAR MÚSICA</title>
+</head>
+
+<body>
+    <h1 th:text = "${titulo}"></h1>
+    <form th:action="@{${link}}" method="POST" th:object="${musica}"> <!-- $ é igual a objeto -->
+        Nome Playlist: <input type="text" th:field="*{nomePlaylist}"> <br> <!-- * é igual a campo -->
+        Nome Musica: <input type="text" th:field="*{nomeMusica}"> <br> <!-- * é igual a campo -->
+        Artista: <input type="text" th:field="*{artista}"> <br>
+        <input type="submit" th:value="${valor}">
+    </form>
+</body>
+</html>

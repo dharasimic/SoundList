@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LISTAGEM</title>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>PLAYLIST</th>
+                <th>MUSICA</th>
+                <th>ARTISTA</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody th:each="musica : ${musicas}">
+            <tr>
+                    <td th:text="${musica.id}"></td>
+                    <td th:text="${musica.nomePlaylist}"></td>
+                    <td th:text="${musica.nomeMusica}"></td>
+                    <td th:text="${musica.artista}"></td>
+                    <td ><a th:href="${'/editar/' + musica.id}">Editar</a></td>
+                    <td>
+                        <form th:action="${'/deletar/' + musica.id}" method="post">
+                            <input type="submit" value="Deletar">
+                        </form>
+                    </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
