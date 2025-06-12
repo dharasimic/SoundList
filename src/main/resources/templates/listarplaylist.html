@@ -190,37 +190,29 @@
             <table>
                 <thead>
                     <tr>
+                        <th>PLAYLIST</th>
                         <th>MÚSICA</th>
                         <th>ARTISTA</th>
                         <th th:if="${not #lists.isEmpty(musicas)}"></th>
                         <th th:if="${not #lists.isEmpty(musicas)}"></th>
                     </tr>
                 </thead>
-                <tbody th:if="${not #lists.isEmpty(musicas)}"
-                       th:with="sortedMusicas=${#lists.sort(musicas, 'nomePlaylist')}, lastPlaylist='__none__'">
-                    <tr th:each="musica, iterStat : ${sortedMusicas}"
-                        th:with="isNewPlaylist=${lastPlaylist != musica.nomePlaylist}">
-                        <tr th:if="${isNewPlaylist}">
-                            <td colspan="4" style="background: var(--roxo-brilhante); color: #fff; font-weight: bold; font-size: 1.1rem; text-align:center;">
-                                <span th:text="${musica.nomePlaylist}"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td th:text="${musica.nomeMusica}"></td>
-                            <td th:text="${musica.artista}"></td>
-                            <td><a th:href="${'/editar/' + musica.id}">Editar</a></td>
-                            <td>
-                                <form th:action="${'/deletar/' + musica.id}" method="post" style="display:inline;">
-                                    <input type="submit" value="Deletar">
-                                </form>
-                            </td>
-                        </tr>
-                        <th:block th:with="lastPlaylist=${musica.nomePlaylist}"></th:block>
+                <tbody th:if="${not #lists.isEmpty(musicas)}" th:each="musica : ${musicas}">
+                    <tr>
+                        <td th:text="${musica.nomePlaylist}"></td>
+                        <td th:text="${musica.nomeMusica}"></td>
+                        <td th:text="${musica.artista}"></td>
+                        <td><a th:href="${'/editar/' + musica.id}">Editar</a></td>
+                        <td>
+                            <form th:action="${'/deletar/' + musica.id}" method="post" style="display:inline;">
+                                <input type="submit" value="Deletar">
+                            </form>
+                        </td>
                     </tr>
                 </tbody>
                 <tbody th:if="${#lists.isEmpty(musicas)}">
                     <tr>
-                        <td colspan="4" style="text-align:center; color: var(--roxo-claro); font-size: 1.1rem;">
+                        <td colspan="5" style="text-align:center; color: var(--roxo-claro); font-size: 1.1rem;">
                             Nenhuma playlist encontrada.
                         </td>
                     </tr>
