@@ -34,7 +34,7 @@ public class MusicaDAO {//data access object
     }
 
     public List<Map<String, Object>> puxarTodasMusicas() {
-        String sql = "SELECT * FROM musica";
+        String sql = "SELECT * FROM musica ORDER BY nome_playlist";
         return jdbc.queryForList(sql);
     }
 }
