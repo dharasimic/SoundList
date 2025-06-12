@@ -1,38 +1,206 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LISTAGEM</title>
+    <title>PlayListar - Listagem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --roxo-escuro: #2C1E33;
+            --roxo-medio: #2F2633;
+            --roxo-claro: #796086;
+            --roxo-vivo: #9561B1;
+            --roxo-brilhante: #AC53DB;
+            --cinza: #58515C;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--roxo-escuro), var(--roxo-vivo));
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            justify-content: center;
+            background: var(--roxo-medio);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(44, 30, 51, 0.3);
+            padding: 0;
+            max-width: 1000px;
+            width: 98vw;
+            min-height: 420px;
+            overflow: hidden;
+        }
+
+        .left-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 48px 40px 40px 40px;
+            min-width: 420px;
+            max-width: 540px;
+            background: var(--roxo-medio);
+        }
+
+        .app-title {
+            font-size: 2.2rem;
+            color: var(--roxo-brilhante);
+            font-weight: 700;
+            margin-bottom: 32px;
+            letter-spacing: 2px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--roxo-escuro);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        th,
+        td {
+            padding: 14px 10px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--roxo-brilhante);
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        tr:nth-child(even) {
+            background: var(--roxo-claro);
+        }
+
+        tr:nth-child(odd) {
+            background: var(--roxo-escuro);
+        }
+
+        a,
+        input[type="submit"] {
+            background: var(--roxo-vivo);
+            color: #fff;
+            border: none;
+            padding: 7px 16px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 6px;
+            transition: background 0.2s;
+        }
+
+        a:hover,
+        input[type="submit"]:hover {
+            background: var(--roxo-brilhante);
+        }
+
+        .image-side {
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            flex: 1;
+            background: var(--roxo-escuro);
+            padding: 0;
+            height: 100%;
+            min-height: 420px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-side img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 65% center;
+            max-width: none;
+            max-height: none;
+            border-radius: 0;
+            box-shadow: none;
+            background: var(--roxo-escuro);
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+                min-height: unset;
+            }
+
+            .left-side,
+            .image-side {
+                max-width: 100vw;
+                min-width: unset;
+                padding: 32px 12px;
+            }
+
+            .image-side img {
+                max-width: 90vw;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>PLAYLIST</th>
-                <th>MUSICA</th>
-                <th>ARTISTA</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody th:each="musica : ${musicas}">
-            <tr>
-                    <td th:text="${musica.id}"></td>
-                    <td th:text="${musica.nomePlaylist}"></td>
-                    <td th:text="${musica.nomeMusica}"></td>
-                    <td th:text="${musica.artista}"></td>
-                    <td ><a th:href="${'/editar/' + musica.id}">Editar</a></td>
-                    <td>
-                        <form th:action="${'/deletar/' + musica.id}" method="post">
-                            <input type="submit" value="Deletar">
-                        </form>
-                    </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="main-content">
+        <div class="left-side">
+            <div class="app-title">PlayListar - Listagem</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>PLAYLIST</th>
+                        <th>MÚSICA</th>
+                        <th>ARTISTA</th>
+                        <!-- Só mostra os títulos dos botões se houver músicas -->
+                        <th th:if="${not #lists.isEmpty(musicas)}"></th>
+                        <th th:if="${not #lists.isEmpty(musicas)}"></th>
+                    </tr>
+                </thead>
+                <!-- Só mostra as colunas dos botões se houver músicas -->
+                <tbody th:if="${not #lists.isEmpty(musicas)}" th:each="musica : ${musicas}">
+                    <tr>
+                        <td th:text="${musica.id}"></td>
+                        <td th:text="${musica.nomePlaylist}"></td>
+                        <td th:text="${musica.nomeMusica}"></td>
+                        <td th:text="${musica.artista}"></td>
+                        <td><a th:href="${'/editar/' + musica.id}">Editar</a></td>
+                        <td>
+                            <form th:action="${'/deletar/' + musica.id}" method="post" style="display:inline;">
+                                <input type="submit" value="Deletar">
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody th:if="${#lists.isEmpty(musicas)}">
+                    <tr>
+                        <td colspan="6" style="text-align:center; color: var(--roxo-claro); font-size: 1.1rem;">
+                            Nenhuma playlist encontrada.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>
