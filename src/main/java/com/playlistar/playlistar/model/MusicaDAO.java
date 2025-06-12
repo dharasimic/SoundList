@@ -33,8 +33,8 @@ public class MusicaDAO {//data access object
         jdbc.update(sql,parametros);
     }
 
-    public List<Map<String,Object>> puxarTodasMusicas(){
-        String sql = "SELECT * FROM musica;";
+    public List<Map<String, Object>> puxarTodasMusicas() {
+        String sql = "SELECT * FROM musica";
         return jdbc.queryForList(sql);
     }
 }
