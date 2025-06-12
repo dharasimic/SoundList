@@ -258,46 +258,23 @@
     <div class="main-content">
         <div class="left-side">
             <div class="app-title">PlayListar - Listagem</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 50%;">MÚSICA</th>
-                        <th style="width: 50%;">ARTISTA</th>
-                    </tr>
-                </thead>
-                <tbody th:with="sortedMusicas=${#lists.sort(musicas, 'nomePlaylist')}, lastPlaylist='__none__'">
-                    <th:block th:each="musica, iterStat : ${sortedMusicas}"
-                        th:with="isNewPlaylist=${lastPlaylist != musica.nomePlaylist}">
-                        <!-- Linha de título da playlist -->
-                        <tr th:if="${isNewPlaylist}">
-                            <td colspan="2"
-                                style="background: var(--roxo-brilhante); color: #fff; font-weight: bold; font-size: 1.1rem; text-align:center;">
-                                <span th:text="${musica.nomePlaylist}"></span>
-                            </td>
+                <table th:each="playlistEntry : ${playlists}">
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="font-weight: bold; font-size: 1.2rem;" th:text="${playlistEntry.key}">Nome da Playlist</th>
                         </tr>
-                        <!-- Linha da música -->
-                        <tr class="linha-musica">
-                            <td>
-                                <span th:text="${musica.nomeMusica}"></span>
-                            </td>
-                            <td style="display: flex; align-items: center; gap: 8px;">
-                                <span th:text="${musica.artista}" style="flex:1;"></span>
-                                <form th:action="${'/editar/' + musica.id}" method="get" style="display:inline;">
-                                    <button type="submit" class="btn-icone" title="Editar" style="padding: 0 10px;">
-                                        <img src="../static/img/edit.png" alt="Editar" style="width:18px; height:18px;">
-                                    </button>
-                                </form>
-                                <form th:action="${'/deletar/' + musica.id}" method="post" style="display:inline;">
-                                    <button type="submit" class="btn-icone" title="Deletar" style="padding: 0 10px;">
-                                        <img src="../static/img/delete.png" alt="Deletar" style="width:18px; height:18px;">
-                                    </button>
-                                </form>
-                            </td>
+                        <tr>
+                            <th>MÚSICA</th>
+                            <th>ARTISTA</th>
                         </tr>
-                        <th:block th:with="lastPlaylist=${musica.nomePlaylist}"></th:block>
-                    </th:block>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <tr th:each="musica : ${playlistEntry.value}">
+                            <td th:text="${musica.nomeMusica}">Nome Música</td>
+                            <td th:text="${musica.artista}">Artista</td>
+                        </tr>
+                    </tbody>
+                </table>
         </div>
     </div>
     <a href="/" class="btn-voltar">Voltar</a>
