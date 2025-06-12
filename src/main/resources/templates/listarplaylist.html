@@ -157,6 +157,29 @@
                 max-width: 90vw;
             }
         }
+
+        .btn-voltar {
+            position: fixed;
+            right: 32px;
+            bottom: 32px;
+            background: var(--roxo-escuro);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(172, 83, 219, 0.12);
+            transition: background 0.2s, transform 0.2s;
+            z-index: 100;
+        }
+
+        .btn-voltar:hover {
+            background: var(--roxo-vivo);
+            transform: translateY(-2px) scale(1.03);
+        }
     </style>
 </head>
 
@@ -167,33 +190,37 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>PLAYLIST</th>
                         <th>MÚSICA</th>
                         <th>ARTISTA</th>
-                        <!-- Só mostra os títulos dos botões se houver músicas -->
                         <th th:if="${not #lists.isEmpty(musicas)}"></th>
                         <th th:if="${not #lists.isEmpty(musicas)}"></th>
                     </tr>
                 </thead>
-                <!-- Só mostra as colunas dos botões se houver músicas -->
-                <tbody th:if="${not #lists.isEmpty(musicas)}" th:each="musica : ${musicas}">
-                    <tr>
-                        <td th:text="${musica.id}"></td>
-                        <td th:text="${musica.nomePlaylist}"></td>
-                        <td th:text="${musica.nomeMusica}"></td>
-                        <td th:text="${musica.artista}"></td>
-                        <td><a th:href="${'/editar/' + musica.id}">Editar</a></td>
-                        <td>
-                            <form th:action="${'/deletar/' + musica.id}" method="post" style="display:inline;">
-                                <input type="submit" value="Deletar">
-                            </form>
-                        </td>
+                <tbody th:if="${not #lists.isEmpty(musicas)}"
+                       th:with="sortedMusicas=${#lists.sort(musicas, 'nomePlaylist')}, lastPlaylist='__none__'">
+                    <tr th:each="musica, iterStat : ${sortedMusicas}"
+                        th:with="isNewPlaylist=${lastPlaylist != musica.nomePlaylist}">
+                        <tr th:if="${isNewPlaylist}">
+                            <td colspan="4" style="background: var(--roxo-brilhante); color: #fff; font-weight: bold; font-size: 1.1rem; text-align:center;">
+                                <span th:text="${musica.nomePlaylist}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td th:text="${musica.nomeMusica}"></td>
+                            <td th:text="${musica.artista}"></td>
+                            <td><a th:href="${'/editar/' + musica.id}">Editar</a></td>
+                            <td>
+                                <form th:action="${'/deletar/' + musica.id}" method="post" style="display:inline;">
+                                    <input type="submit" value="Deletar">
+                                </form>
+                            </td>
+                        </tr>
+                        <th:block th:with="lastPlaylist=${musica.nomePlaylist}"></th:block>
                     </tr>
                 </tbody>
                 <tbody th:if="${#lists.isEmpty(musicas)}">
                     <tr>
-                        <td colspan="6" style="text-align:center; color: var(--roxo-claro); font-size: 1.1rem;">
+                        <td colspan="4" style="text-align:center; color: var(--roxo-claro); font-size: 1.1rem;">
                             Nenhuma playlist encontrada.
                         </td>
                     </tr>
@@ -201,6 +228,7 @@
             </table>
         </div>
     </div>
+    <a href="/" class="btn-voltar">Voltar</a>
 </body>
 
 </html>
