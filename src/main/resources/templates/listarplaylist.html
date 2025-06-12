@@ -27,7 +27,7 @@
             justify-content: center;
         }
 
-        .main-content {
+        .main-content { 
             display: flex;
             flex-direction: row;
             align-items: stretch;
@@ -184,6 +184,73 @@
         tr.linha-musica {
             background: var(--roxo-escuro);
         }
+
+        .btn-pequeno {
+            padding: 2px 10px !important;
+            font-size: 0.85rem !important;
+            border-radius: 5px !important;
+            margin-left: 6px !important;
+            min-width: 0 !important;
+            box-shadow: none !important;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .linha-musica form {
+            display: inline;
+        }
+
+        .btn-left {
+            float: left;
+            margin-left: 0 !important;
+            margin-right: 6px !important;
+        }
+
+        .linha-musica td {
+            vertical-align: middle;
+        }
+
+        .btn-deletar {
+            background: var(--roxo-vivo) !important;
+            border: 2px solid var(--roxo-brilhante) !important;
+            padding: 2px 10px !important;
+            border-radius: 5px !important;
+            min-width: 0 !important;
+            box-shadow: none !important;
+            margin-left: 6px !important;
+            cursor: pointer;
+            transition: background 0.2s, border 0.2s;
+        }
+
+        .btn-deletar:hover {
+            background: var(--roxo-brilhante) !important;
+            border-color: var(--roxo-vivo) !important;
+        }
+
+        .btn-icone {
+            background: var(--roxo-vivo) !important;
+            border: 2px solid var(--roxo-brilhante) !important;
+            padding: 2px 10px !important;
+            border-radius: 5px !important;
+            min-width: 0 !important;
+            box-shadow: none !important;
+            margin-left: 6px !important;
+            cursor: pointer;
+            transition: background 0.2s, border 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 28px;
+        }
+
+        .btn-icone:hover {
+            background: var(--roxo-brilhante) !important;
+            border-color: var(--roxo-vivo) !important;
+        }
+
+        .btn-icone img {
+            pointer-events: none;
+        }
     </style>
 </head>
 
@@ -194,47 +261,41 @@
             <table>
                 <thead>
                     <tr>
-                        <thead>
-                            <tr>
-                                <th>MÚSICA</th>
-                                <th>ARTISTA</th>
-                                <th th:if="${not #lists.isEmpty(musicas)}">Editar</th>
-                                <th th:if="${not #lists.isEmpty(musicas)}">Deletar</th>
-                            </tr>
-                        </thead>
+                        <th style="width: 50%;">MÚSICA</th>
+                        <th style="width: 50%;">ARTISTA</th>
                     </tr>
                 </thead>
-                <tbody th:if="${not #lists.isEmpty(musicas)}"
-                    th:with="sortedMusicas=${#lists.sort(musicas, 'nomePlaylist')}, lastPlaylist='__none__'">
+                <tbody th:with="sortedMusicas=${#lists.sort(musicas, 'nomePlaylist')}, lastPlaylist='__none__'">
                     <th:block th:each="musica, iterStat : ${sortedMusicas}"
                         th:with="isNewPlaylist=${lastPlaylist != musica.nomePlaylist}">
                         <!-- Linha de título da playlist -->
                         <tr th:if="${isNewPlaylist}">
-                            <td colspan="4"
+                            <td colspan="2"
                                 style="background: var(--roxo-brilhante); color: #fff; font-weight: bold; font-size: 1.1rem; text-align:center;">
                                 <span th:text="${musica.nomePlaylist}"></span>
                             </td>
                         </tr>
                         <!-- Linha da música -->
                         <tr class="linha-musica">
-                            <td th:text="${musica.nomeMusica}"></td>
-                            <td th:text="${musica.artista}"></td>
-                            <td><a th:href="${'/editar/' + musica.id}">Editar</a></td>
                             <td>
+                                <span th:text="${musica.nomeMusica}"></span>
+                            </td>
+                            <td style="display: flex; align-items: center; gap: 8px;">
+                                <span th:text="${musica.artista}" style="flex:1;"></span>
+                                <form th:action="${'/editar/' + musica.id}" method="get" style="display:inline;">
+                                    <button type="submit" class="btn-icone" title="Editar" style="padding: 0 10px;">
+                                        <img src="../static/img/edit.png" alt="Editar" style="width:18px; height:18px;">
+                                    </button>
+                                </form>
                                 <form th:action="${'/deletar/' + musica.id}" method="post" style="display:inline;">
-                                    <input type="submit" value="Deletar">
+                                    <button type="submit" class="btn-icone" title="Deletar" style="padding: 0 10px;">
+                                        <img src="../static/img/delete.png" alt="Deletar" style="width:18px; height:18px;">
+                                    </button>
                                 </form>
                             </td>
                         </tr>
                         <th:block th:with="lastPlaylist=${musica.nomePlaylist}"></th:block>
                     </th:block>
-                </tbody>
-                <tbody th:if="${#lists.isEmpty(musicas)}">
-                    <tr>
-                        <td colspan="2" style="text-align:center; color: var(--roxo-claro); font-size: 1.1rem;">
-                            Nenhuma playlist encontrada.
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
