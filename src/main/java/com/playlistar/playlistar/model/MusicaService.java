@@ -15,8 +15,8 @@ public class MusicaService {
         mdao.inserirMusica(mus);
     }
 
-    public List<Musica> puxarTodasMusicas(){
-       return Musica.converterVarios(mdao.puxarTodasMusicas());
+    public List<Musica> puxarTodasMusicas(){   
+        return Musica.converterVarios(mdao.puxarTodasMusicas());
     }
 
 }

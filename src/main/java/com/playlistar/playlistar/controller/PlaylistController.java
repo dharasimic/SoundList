@@ -47,7 +47,7 @@ public class PlaylistController {
          MusicaService ms = ctx.getBean(MusicaService.class);
          List<Musica> lista = ms.puxarTodasMusicas();
          model.addAttribute("musicas", lista);
-        return "listar";
+        return "listarplaylist";
     }
 
 
