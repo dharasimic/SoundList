@@ -1,6 +1,8 @@
 package com.playlistar.playlistar.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -46,7 +48,12 @@ public class PlaylistController {
     public String listarplaylist(Model model){
          MusicaService ms = ctx.getBean(MusicaService.class);
          List<Musica> lista = ms.puxarTodasMusicas();
-         model.addAttribute("musicas", lista);
+           
+         // Agrupando por nome da playlist
+         Map<String, List<Musica>> agrupadoPorPlaylist = lista.stream()
+            .collect(Collectors.groupingBy(Musica::getNomePlaylist));
+
+         model.addAttribute("playlists", agrupadoPorPlaylist);
         return "listarplaylist";
     }
 
