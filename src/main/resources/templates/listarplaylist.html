@@ -63,6 +63,7 @@
 
         table {
             width: 100%;
+            table-layout: fixed; /* This ensures consistent column widths */
             border-collapse: collapse;
             background: var(--roxo-escuro);
             border-radius: 10px;
@@ -197,7 +198,9 @@
         }
 
         .linha-musica form {
-            display: inline;
+            display: inline-flex;
+            margin: 0;
+            padding: 0;
         }
 
         .btn-left {
@@ -213,17 +216,19 @@
         .btn-icone {
             background: var(--roxo-vivo) !important;
             border: 2px solid var(--roxo-brilhante) !important;
-            padding: 2px 10px !important;
+            padding: 2px 6px !important;
             border-radius: 5px !important;
             min-width: 0 !important;
             box-shadow: none !important;
-            margin-left: 6px !important;
+            margin: 0 !important;
             cursor: pointer;
             transition: background 0.2s, border 0.2s;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            width: 34px;
             height: 28px;
+            box-sizing: border-box;
         }
 
         .btn-icone:hover {
@@ -271,6 +276,16 @@
             background: var(--roxo-brilhante);
             border-radius: 8px;
         }
+
+        .linha-musica td:last-child {
+            text-align: center;
+            width: 20%;
+        }
+
+        .linha-musica td:first-child,
+        .linha-musica td:nth-child(2) {
+            width: 40%;
+        }
     </style>
 </head>
 
@@ -282,28 +297,34 @@
                 <table th:each="playlistEntry : ${playlists}">
                     <thead>
                         <tr>
-                            <th colspan="2" style="font-weight: bold; font-size: 1.2rem; background: var(--roxo-brilhante); color: #fff; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                            <th colspan="3" style="font-weight: bold; font-size: 1.2rem; background: var(--roxo-brilhante); color: #fff; border-top-left-radius: 12px; border-top-right-radius: 12px;">
                                 <span th:text="${playlistEntry.key}">Nome da Playlist</span>
                             </th>
                         </tr>
                         <tr>
-                            <th style="background: #c9a1e6; color: #fff; font-size: 1rem; font-weight: 700; padding: 10px 10px;">
+                            <th style="background: #c9a1e6; color: #fff; font-size: 1rem; font-weight: 700; padding: 10px 10px; width: 40%;">
                                 MÚSICA
                             </th>
-                            <th style="background: #c9a1e6; color: #fff; font-size: 1rem; font-weight: 700; padding: 10px 10px;">
+                            <th style="background: #c9a1e6; color: #fff; font-size: 1rem; font-weight: 700; padding: 10px 10px; width: 40%;">
                                 ARTISTA
+                            </th>
+                            <th style="background: #c9a1e6; color: #fff; font-size: 1rem; font-weight: 700; padding: 10px 10px; width: 20%; text-align: center;">
+                                AÇÕES
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Linhas das músicas (verde) -->
                         <tr th:each="musica : ${playlistEntry.value}" class="linha-musica">
                             <td th:text="${musica.nomeMusica}">Nome Música</td>
                             <td th:text="${musica.artista}">Artista</td>
-                            <td ><a th:href="${'/atualizarmusica/' + musica.id}">Editar</a></td>
                             <td>
-                                <form th:action="${'/deletarmusica/' + musica.id}" method="post">
-                                    <input type="submit" value="Deletar">
+                                <a th:href="${'/atualizarmusica/' + musica.id}" class="btn-icone" title="Editar">
+                                    <img src="../static/img/edit.png" alt="Editar" style="width:20px; height:20px;">
+                                </a>
+                                <form th:action="${'/deletar/' + musica.id}" method="post">
+                                    <button type="submit" class="btn-icone" title="Deletar">
+                                        <img src="../static/img/delete.png" alt="Deletar" style="width:20px; height:20px;">
+                                    </button>
                                 </form>
                             </td>
                         </tr>
