@@ -19,4 +19,15 @@ public class MusicaService {
         return Musica.converterVarios(mdao.puxarTodasMusicas());
     }
 
+    public Musica puxarMusica(int id){
+        return Musica.converter(mdao.puxarMusica(id));
+    }
+
+    public void atualizarMusica(int id, Musica mus){
+        mdao.atualizarMusica(id, mus);
+    }
+
+    public void deletarMusica(int id){
+        mdao.deletarMusica(id);
+    }
 }

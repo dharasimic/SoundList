@@ -300,6 +300,12 @@
                         <tr th:each="musica : ${playlistEntry.value}" class="linha-musica">
                             <td th:text="${musica.nomeMusica}">Nome Música</td>
                             <td th:text="${musica.artista}">Artista</td>
+                            <td ><a th:href="${'/atualizarmusica/' + musica.id}">Editar</a></td>
+                            <td>
+                                <form th:action="${'/deletarmusica/' + musica.id}" method="post">
+                                    <input type="submit" value="Deletar">
+                                </form>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.playlistar.playlistar.model.Musica;
@@ -56,9 +57,31 @@ public class PlaylistController {
          model.addAttribute("playlists", agrupadoPorPlaylist);
         return "listarplaylist";
     }
+    
+    @GetMapping("/atualizarmusica/{id}")
+    public String atualizarMusica(Model model, @PathVariable int id) {
+        MusicaService ms = ctx.getBean(MusicaService.class);
+        Musica velho = ms.puxarMusica(id); 
+        model.addAttribute("nomeMusica", velho);
+        model.addAttribute("titulo", "EDITAR MUSICA");
+        model.addAttribute("link", "/atualizarmusica/" + id);
+        model.addAttribute("valor", "Editar");
+        return "listarplaylist";
+    }
 
+    @PostMapping("/atualizarmusica/{id}") 
+    public String atualizarMusica(Model model, @ModelAttribute Musica mus, @PathVariable int id) {
+        MusicaService cs = ctx.getBean(MusicaService.class);
+        cs.atualizarMusica(id, mus);
+        return "redirect:/listarplaylist"; 
+    }
 
-
+    @PostMapping("/deletar/{id}") 
+    public String deletarMusica(@PathVariable int id) {
+        MusicaService cs = ctx.getBean(MusicaService.class);
+        cs.deletarMusica(id);
+        return "redirect:/listarplaylist"; 
+    }
 
 
 }
