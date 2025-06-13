@@ -62,11 +62,11 @@ public class PlaylistController {
     public String atualizarMusica(Model model, @PathVariable int id) {
         MusicaService ms = ctx.getBean(MusicaService.class);
         Musica velho = ms.puxarMusica(id); 
-        model.addAttribute("nomeMusica", velho);
+        model.addAttribute("musica", velho);
         model.addAttribute("titulo", "EDITAR MUSICA");
         model.addAttribute("link", "/atualizarmusica/" + id);
         model.addAttribute("valor", "Editar");
-        return "listarplaylist";
+        return "newplaylist";
     }
 
     @PostMapping("/atualizarmusica/{id}") 
