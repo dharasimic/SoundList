@@ -33,7 +33,7 @@ public class PlaylistController {
         model.addAttribute("playlist", "DIGITE O NOME DA PLAYLIST");
         model.addAttribute("musica", new Musica());
         model.addAttribute("titulo", "ADICIONAR NOVA MUSICA");
-        model.addAttribute("link", "/listarplaylist");
+        model.addAttribute("link", "/novamusica");
         model.addAttribute("valor", "Adicionar música");
         return "newplaylist";
     }
@@ -83,5 +83,17 @@ public class PlaylistController {
         return "redirect:/listarplaylist"; 
     }
 
-
+    @PostMapping("/novamusica")
+    public String adicionarMusica(@ModelAttribute Musica musica, Model model) {
+        MusicaService ms = ctx.getBean(MusicaService.class);
+        ms.inserirMusica(musica);
+        
+        model.addAttribute("musica", new Musica()); 
+        model.addAttribute("titulo", "ADICIONAR NOVA MUSICA");
+        model.addAttribute("link", "/novamusica");
+        model.addAttribute("valor", "Adicionar música");
+        model.addAttribute("mensagem", "Música adicionada com sucesso!");
+        
+        return "newplaylist";
+    }
 }
