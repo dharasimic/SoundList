@@ -319,11 +319,11 @@
                             <td th:text="${musica.artista}">Artista</td>
                             <td>
                                 <a th:href="${'/atualizarmusica/' + musica.id}" class="btn-icone" title="Editar">
-                                    <img src="../static/img/edit.png" alt="Editar" style="width:20px; height:20px;">
+                                    <img th:src="@{/img/edit.png}" alt="Editar" style="width:20px; height:20px;">
                                 </a>
                                 <form th:action="${'/deletar/' + musica.id}" method="post">
                                     <button type="submit" class="btn-icone" title="Deletar">
-                                        <img src="../static/img/delete.png" alt="Deletar" style="width:20px; height:20px;">
+                                        <img th:src="@{/img/delete.png}" alt="Deletar" style="width:20px; height:20px;">
                                     </button>
                                 </form>
                             </td>
