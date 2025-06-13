@@ -37,4 +37,26 @@ public class MusicaDAO {//data access object
         String sql = "SELECT * FROM musica ORDER BY nome_playlist";
         return jdbc.queryForList(sql);
     }
+
+    public Map<String,Object> puxarMusica(int id){
+        String sql = "SELECT * FROM musica WHERE id = ?";
+        return jdbc.queryForMap(sql, id);
+    }
+
+
+    public void atualizarMusica(int id, Musica mus){
+        String sql = "UPDATE musica SET nome_playlist = ?, nome_musica = ?, artista = ? WHERE id = ?";
+        Object[] parametros = new Object[4]; //um para cada valor ?
+        parametros[0] = mus.getNomePlaylist();
+        parametros[1] = mus.getNomeMusica();
+        parametros[2] = mus.getArtista();
+        parametros[3] = mus.getId();
+
+        jdbc.update(sql,parametros);
+    }
+
+    public void deletarMusica(int id){
+        String sql = "DELETE FROM musica WHERE id = ?";
+        jdbc.update(sql,id);
+    }
 }
