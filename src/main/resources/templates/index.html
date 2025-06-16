@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PlayListar - Página Inicial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --roxo-escuro: #2C1E33;
+            --roxo-medio: #2F2633;
+            --roxo-claro: #796086;
+            --roxo-vivo: #9561B1;
+            --roxo-brilhante: #AC53DB;
+            --cinza: #58515C;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--roxo-escuro), var(--roxo-vivo));
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            justify-content: center;
+            background: var(--roxo-medio);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(44, 30, 51, 0.3);
+            padding: 0;
+            max-width: 1000px;
+            width: 98vw;
+            min-height: 480px;
+            overflow: hidden;
+        }
+
+        .left-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 72px 64px 56px 64px;
+            min-width: 420px;
+            max-width: 520px;
+            background: var(--roxo-medio);
+        }
+
+        .app-title {
+            font-size: 2.8rem;
+            color: var(--roxo-brilhante);
+            font-weight: 700;
+            margin-bottom: 48px;
+            letter-spacing: 2px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            width: 100%;
+        }
+
+        .btn {
+            background: var(--roxo-brilhante);
+            color: #fff;
+            border: none;
+            padding: 14px 0;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(172, 83, 219, 0.12);
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: var(--roxo-vivo);
+            transform: translateY(-2px) scale(1.03);
+        }
+
+        .creators {
+            margin-top: 48px;
+            font-size: 1.1rem;
+            color: var(--roxo-claro);
+            text-align: left;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .image-side {
+            flex: 1;
+            background: var(--roxo-escuro);
+            padding: 0;
+            min-height: 420px;
+            height: auto;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .image-side img {
+            width: 100%;
+            height: 100%;
+            min-height: 420px;
+            object-fit: cover;
+            object-position: 80% center;
+            border-radius: 0;
+            box-shadow: none;
+            background: var(--roxo-escuro);
+            display: block;
+        }
+
+        .footer-creators {
+            margin-top: 32px;
+            font-size: 1.1rem;
+            color: var(--roxo-escuro);
+            text-align: center;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+                min-height: unset;
+            }
+
+            .left-side,
+            .image-side {
+                max-width: 100vw;
+                min-width: unset;
+                padding: 32px 12px;
+            }
+
+            .image-side img {
+                max-width: 90vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <div class="left-side">
+            <div class="app-title">PlayListar</div>
+            <div class="btn-group">
+                <a href="/newplaylist" class="btn">Adicionar Nova Playlist</a>
+                <a href="/listarplaylist" class="btn">Listar Playlists</a>
+            </div>
+        </div>
+        <div class="image-side">
+            <img th:src="@{/img/HomePage.jpg}" alt="Página inicial PlayListar">
+        </div>
+    </div>
+    <div class="footer-creators">
+        Projeto de Dhara Simic e Kayo Campos
+    </div>
+</body>
+
+</html>
